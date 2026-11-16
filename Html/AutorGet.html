@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autores - BibliotecaWeb</title>
+
+    <link rel="stylesheet" href="../Css/style.css">
+    <link rel="stylesheet" href="../Css/Autor.css">
+</head>
+<body>
+
+    <header>
+        <h1>BibliotecaWeb</h1>
+
+        <nav>
+            <a href="AutorGet.html">Autores</a>
+            <a href="UsuarioLogin.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="secao-autores">
+
+            <div class="cabecalho-secao">
+                <h2>Gerenciamento de Autores</h2>
+
+                <a href="AutorPost.html" class="btn-cadastrar">
+                    + Cadastrar Autor
+                </a>
+            </div>
+
+            <table id="tabela-autores">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-autores">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="paginacao">
+                <button id="btn-anterior" type="button"
+                        aria-label="Página anterior">
+                    &#10094;
+                </button>
+
+                <span id="info-pagina">Página 1</span>
+
+                <button id="btn-proximo" type="button"
+                        aria-label="Próxima página">
+                    &#10095;
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- MODAL DE EXCLUSÃO -->
+    <dialog id="modal-exclusao" class="modal-exclusao">
+        <div class="modal-conteudo">
+
+            <h2>Excluir autor?</h2>
+
+            <p id="texto-exclusao"></p>
+
+            <div class="modal-acoes">
+                <button type="button" id="btn-cancelar-exclusao">
+                    Cancelar
+                </button>
+
+                <button type="button" id="btn-confirmar-exclusao">
+                    Sim, excluir
+                </button>
+            </div>
+
+        </div>
+    </dialog>
+
+    <!-- NOTIFICAÇÃO -->
+    <div
+        id="mensagem-resultado"
+        role="status"
+        aria-live="polite">
+    </div>
+
+    <script src="../JavaScript/AutorGet.js"></script>
+</body>
+</html>

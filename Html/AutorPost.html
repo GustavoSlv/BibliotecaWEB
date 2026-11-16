@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Autor - BibliotecaWeb</title>
+
+    <link rel="stylesheet" href="../Css/style.css">
+    <link rel="stylesheet" href="../Css/Autor.css">
+</head>
+<body>
+
+    <header>
+        <h1>BibliotecaWeb</h1>
+
+        <nav>
+            <a href="AutorGet.html">Autores</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="secao-autores">
+
+            <h2 id="titulo-form-autor">Cadastrar Autor</h2>
+
+            <form id="form-autor">
+
+                <div id="campo-id" hidden>
+                    <label for="autorId">ID do Autor:</label>
+                    <input
+                        type="text"
+                        id="autorId"
+                        readonly
+                    >
+                </div>
+
+                <label for="nomeAutor">Nome do Autor:</label>
+                <input
+                    type="text"
+                    id="nomeAutor"
+                    name="nome"
+                    placeholder="Digite o nome do autor"
+                    maxlength="150"
+                    required
+                >
+
+                <button type="submit" id="btn-salvar-autor">
+                    Salvar Autor
+                </button>
+
+                <a href="AutorGet.html">Voltar</a>
+            </form>
+
+            <p id="mensagem-autor" role="status"></p>
+
+        </section>
+    </main>
+
+    <script src="../JavaScript/AutorPost.js"></script>
+</body>
+</html>

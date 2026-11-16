@@ -1,0 +1,105 @@
+
+/* LOGIN E CADASTRO DE USUÁRIOS */
+
+.login-container {
+    background-color: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.login-container h1 {
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.login-container h2 {
+    color: #334155;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+#form-login,
+#form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+#form-login label,
+#form-cadastro label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #334155;
+}
+
+#form-login input,
+#form-cadastro input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+#form-login input:focus,
+#form-cadastro input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+#form-login button,
+#form-cadastro button {
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.login-container p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-container a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+.login-container > a {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+#mensagem-login,
+#mensagem-cadastro {
+    margin-top: 15px;
+    font-size: 14px;
+    min-height: 18px;
+}
+
+/* CENTRALIZAR LOGIN E CADASTRO */
+
+body:has(.login-container) main {
+    max-width: none;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 25px;
+    }
+}
