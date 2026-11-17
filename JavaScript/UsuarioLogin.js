@@ -35,7 +35,7 @@ formLogin.addEventListener("submit", async function (event) {
         sessionStorage.setItem("token", dados.token);
         sessionStorage.setItem("expiresAt", dados.expiresAt);
 
-        window.location.href = "AutorGet.html";
+        window.location.href = "LivroGet.html";
 
         mensagemLogin.textContent = "Login realizado com sucesso!";
         console.log("Login realizado com sucesso.");

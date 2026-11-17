@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Livro - BibliotecaWeb</title>
+
+    <link rel="stylesheet" href="../Css/style.css">
+    <link rel="stylesheet" href="../Css/Livro.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>BibliotecaWeb</h1>
+
+        <nav>
+            <a href="AutorGet.html">Autores</a>
+            <a href="LivroGet.html">Livros</a>
+            <a href="UsuarioLogin.html">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="secao-livros">
+
+            <h2 id="titulo-form-livro">Cadastrar Livro</h2>
+
+            <form id="form-livro">
+
+                <!-- ID VISÍVEL SOMENTE NA EDIÇÃO -->
+
+                <div id="campo-id" hidden>
+                    <label for="livroId">ID do Livro:</label>
+                    <input
+                        type="text"
+                        id="livroId"
+                        readonly>
+                </div>
+
+                <label for="titulo">Título:</label>
+                <input
+                    type="text"
+                    id="titulo"
+                    placeholder="Digite o título do livro"
+                    required>
+
+                <label for="isbn">ISBN:</label>
+                <input
+                    type="text"
+                    id="isbn"
+                    placeholder="Digite o ISBN"
+                    required>
+
+                <label for="anoPublicacao">Ano de Publicação:</label>
+                <input
+                    type="number"
+                    id="anoPublicacao"
+                    placeholder="Digite o ano de publicação"
+                    required>
+
+                <label for="autorId">Autor:</label>
+                <select id="autorId" required>
+                    <option value="">Carregando autores...</option>
+                </select>
+
+                <button
+                    type="submit"
+                    id="btn-salvar-livro"
+                    disabled>
+                    Salvar Livro
+                </button>
+
+                <a href="LivroGet.html">Voltar</a>
+
+            </form>
+
+            <p id="mensagem-livro" role="status"></p>
+
+        </section>
+    </main>
+
+    <script src="../JavaScript/LivroPost.js"></script>
+
+</body>
+</html>

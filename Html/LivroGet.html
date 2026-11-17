@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Livros - BibliotecaWeb</title>
+
+    <link rel="stylesheet" href="../Css/style.css">
+    <link rel="stylesheet" href="../Css/Livro.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>BibliotecaWeb</h1>
+
+        <nav>
+            <a href="AutorGet.html">Autores</a>
+            <a href="LivroGet.html">Livros</a>
+            <a href="UsuarioLogin.html">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="secao-livros">
+
+            <div class="cabecalho-secao">
+                <h2>Gerenciamento de Livros</h2>
+
+                <a href="LivroPost.html" class="btn-cadastrar">
+                    + Cadastrar Livro
+                </a>
+            </div>
+
+            <div class="tabela-container">
+                <table id="tabela-livros">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>ISBN</th>
+                            <th>Ano</th>
+                            <th>Autor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lista-livros">
+                        <!-- Preenchido pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="paginacao">
+                <button
+                    id="btn-anterior"
+                    type="button"
+                    aria-label="Página anterior">
+                    &#10094;
+                </button>
+
+                <span id="info-pagina">Página 1 de 1</span>
+
+                <button
+                    id="btn-proximo"
+                    type="button"
+                    aria-label="Próxima página">
+                    &#10095;
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- MODAL DE EXCLUSÃO -->
+
+    <dialog id="modal-exclusao" class="modal-exclusao">
+
+        <div class="modal-conteudo">
+
+            <h2>Excluir livro?</h2>
+
+            <p id="texto-exclusao"></p>
+
+            <div class="modal-acoes">
+
+                <button
+                    type="button"
+                    id="btn-cancelar-exclusao">
+                    Cancelar
+                </button>
+
+                <button
+                    type="button"
+                    id="btn-confirmar-exclusao">
+                    Sim, excluir
+                </button>
+
+            </div>
+
+        </div>
+
+    </dialog>
+
+    <!-- NOTIFICAÇÃO -->
+
+    <div
+        id="mensagem-resultado"
+        role="status"
+        aria-live="polite">
+    </div>
+
+    <script src="../JavaScript/LivroGet.js"></script>
+
+</body>
+</html>
