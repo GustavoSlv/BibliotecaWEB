@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -19,7 +20,7 @@
         <nav>
             <a href="AutorGet.html">Autores</a>
             <a href="LivroGet.html">Livros</a>
-            <a href="UsuarioLogin.html" onclick="sair(); return false;">Sair</a>
+            <a href="UsuarioLogin.html">Sair</a>
         </nav>
     </header>
 
@@ -28,30 +29,52 @@
 
             <h2 id="titulo-form-livro">Cadastrar Livro</h2>
 
-            <form id="form-livro">
+            <form id="form-livro" novalidate>
 
                 <!-- ID VISÍVEL SOMENTE NA EDIÇÃO -->
 
                 <div id="campo-id" hidden>
                     <label for="livroId">ID do Livro:</label>
-                    <input type="text" id="livroId" readonly>
+                    <input
+                        type="text"
+                        id="livroId"
+                        readonly>
                 </div>
 
                 <label for="titulo">Título:</label>
-                <input type="text" id="titulo" placeholder="Digite o título do livro" required>
+                <input
+                    type="text"
+                    id="titulo"
+                    placeholder="Digite o título do livro"
+                    required>
 
                 <label for="isbn">ISBN:</label>
-                <input type="text" id="isbn" placeholder="Digite o ISBN" required>
+                <input
+                    type="text"
+                    id="isbn"
+                    placeholder="Digite o ISBN"
+                    required>
 
                 <label for="anoPublicacao">Ano de Publicação:</label>
-                <input type="number" id="anoPublicacao" placeholder="Digite o ano de publicação" required>
+                <input
+                    type="number"
+                    id="anoPublicacao"
+                    placeholder="Digite o ano de publicação"
+                    required>
 
                 <label for="autorId">Autor:</label>
                 <select id="autorId" required>
                     <option value="">Carregando autores...</option>
                 </select>
+                <small id="erro-autorId" class="erro-campo" aria-live="polite"></small>
+                <small id="erro-anoPublicacao" class="erro-campo" aria-live="polite"></small>
+                <small id="erro-isbn" class="erro-campo" aria-live="polite"></small>
+                <small id="erro-titulo" class="erro-campo" aria-live="polite"></small>
 
-                <button type="submit" id="btn-salvar-livro" disabled>
+                <button
+                    type="submit"
+                    id="btn-salvar-livro"
+                    disabled>
                     Salvar Livro
                 </button>
 
@@ -64,9 +87,8 @@
         </section>
     </main>
 
+    <script src="../JavaScript/Validacao.js"></script>
     <script src="../JavaScript/LivroPost.js"></script>
-    <script src="../JavaScript/Logout.js"></script>
 
 </body>
-
 </html>

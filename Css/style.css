@@ -383,3 +383,20 @@ button:disabled { cursor: not-allowed; }
     :is(#form-autor, #form-livro) { padding: 20px; }
     :is(#form-autor, #form-livro) button { width: 100%; }
 }
+
+/* VALIDAÇÃO DOS FORMULÁRIOS DE AUTORES E LIVROS */
+:is(#form-autor, #form-livro) .erro-campo {
+    display: block;
+    color: #dc2626;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+:is(#form-autor, #form-livro) .erro-campo:empty { display: none; }
+
+:is(#form-autor, #form-livro) .input-invalido,
+:is(#form-autor, #form-livro) .input-invalido:focus {
+    border-color: #dc2626;
+    background-color: #fef2f2;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.12);
+}

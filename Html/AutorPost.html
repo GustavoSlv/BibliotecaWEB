@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../Css/style.css">
     <link rel="stylesheet" href="../Css/Autor.css">
 </head>
-
 <body>
 
     <header>
@@ -18,7 +17,7 @@
         <nav>
             <a href="AutorGet.html">Autores</a>
             <a href="LivroGet.html">Livros</a>
-            <a href="UsuarioLogin.html" onclick="sair(); return false;">Sair</a>
+            <a href="UsuarioLogin.html">Sair</a>
         </nav>
     </header>
 
@@ -27,16 +26,27 @@
 
             <h2 id="titulo-form-autor">Cadastrar Autor</h2>
 
-            <form id="form-autor">
+            <form id="form-autor" novalidate>
 
                 <div id="campo-id" hidden>
                     <label for="autorId">ID do Autor:</label>
-                    <input type="text" id="autorId" readonly>
+                    <input
+                        type="text"
+                        id="autorId"
+                        readonly
+                    >
                 </div>
 
                 <label for="nomeAutor">Nome do Autor:</label>
-                <input type="text" id="nomeAutor" name="nome" placeholder="Digite o nome do autor" maxlength="150"
-                    required>
+                <input
+                    type="text"
+                    id="nomeAutor"
+                    name="nome"
+                    placeholder="Digite o nome do autor"
+                    maxlength="150"
+                    required
+                >
+                <small id="erro-nomeAutor" class="erro-campo" aria-live="polite"></small>
 
                 <button type="submit" id="btn-salvar-autor">
                     Salvar Autor
@@ -50,8 +60,7 @@
         </section>
     </main>
 
+    <script src="../JavaScript/Validacao.js"></script>
     <script src="../JavaScript/AutorPost.js"></script>
-    <script src="../JavaScript/Logout.js"></script>
 </body>
-
 </html>
