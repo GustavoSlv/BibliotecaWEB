@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -20,7 +19,7 @@
         <nav>
             <a href="AutorGet.html">Autores</a>
             <a href="LivroGet.html">Livros</a>
-            <a href="UsuarioLogin.html">Sair</a>
+            <a href="UsuarioLogin.html" onclick="sair(); return false;">Sair</a>
         </nav>
     </header>
 
@@ -35,8 +34,41 @@
                 </a>
             </div>
 
+            <!-- PESQUISA DE LIVROS -->
+
+            <form id="form-pesquisa-livros" class="pesquisa-livros">
+
+                <select id="tipo-pesquisa" aria-label="Pesquisar por">
+
+                    <option value="titulo">Título</option>
+                    <option value="ano">Ano</option>
+                    <option value="autor">Autor</option>
+                    <option value="id">ID</option>
+
+                </select>
+
+                <input type="search" id="valor-pesquisa" placeholder="Pesquisar livro pelo título...">
+
+                <!-- VISÍVEL SOMENTE NA PESQUISA POR ANO -->
+                <div id="campo-ano-final" hidden>
+                    <input type="number" id="ano-final" placeholder="Ano final (opcional)" aria-label="Ano final">
+                </div>
+
+                <button type="submit" id="btn-pesquisar">
+                    Pesquisar
+                </button>
+
+                <button type="button" id="btn-limpar">
+                    Limpar
+                </button>
+
+            </form>
+
+            <!-- TABELA -->
+
             <div class="tabela-container">
                 <table id="tabela-livros">
+
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -51,25 +83,24 @@
                     <tbody id="lista-livros">
                         <!-- Preenchido pelo JavaScript -->
                     </tbody>
+
                 </table>
             </div>
 
+            <!-- PAGINAÇÃO -->
+
             <div class="paginacao">
-                <button
-                    id="btn-anterior"
-                    type="button"
-                    aria-label="Página anterior">
+
+                <button id="btn-anterior" type="button" aria-label="Página anterior">
                     &#10094;
                 </button>
 
                 <span id="info-pagina">Página 1 de 1</span>
 
-                <button
-                    id="btn-proximo"
-                    type="button"
-                    aria-label="Próxima página">
+                <button id="btn-proximo" type="button" aria-label="Próxima página">
                     &#10095;
                 </button>
+
             </div>
 
         </section>
@@ -87,15 +118,11 @@
 
             <div class="modal-acoes">
 
-                <button
-                    type="button"
-                    id="btn-cancelar-exclusao">
+                <button type="button" id="btn-cancelar-exclusao">
                     Cancelar
                 </button>
 
-                <button
-                    type="button"
-                    id="btn-confirmar-exclusao">
+                <button type="button" id="btn-confirmar-exclusao">
                     Sim, excluir
                 </button>
 
@@ -105,15 +132,13 @@
 
     </dialog>
 
-    <!-- NOTIFICAÇÃO -->
+    <!-- NOTIFICAÇÕES -->
 
-    <div
-        id="mensagem-resultado"
-        role="status"
-        aria-live="polite">
-    </div>
+    <div id="mensagem-resultado" role="status" aria-live="polite"></div>
 
     <script src="../JavaScript/LivroGet.js"></script>
+    <script src="../JavaScript/Logout.js"></script>
 
 </body>
+
 </html>

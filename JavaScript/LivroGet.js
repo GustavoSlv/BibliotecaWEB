@@ -6,6 +6,22 @@ const tamanhoPagina = 10;
 let totalPaginas = 0;
 let livroSelecionado = null;
 
+// FILTROS DA PESQUISA
+let filtro = {
+    tipo: "",
+    valor: "",
+    anoFinal: ""
+};
+
+// ELEMENTOS DA PESQUISA
+const formPesquisa = document.getElementById("form-pesquisa-livros");
+const tipoPesquisa = document.getElementById("tipo-pesquisa");
+const valorPesquisa = document.getElementById("valor-pesquisa");
+const campoAnoFinal = document.getElementById("campo-ano-final");
+const inputAnoFinal = document.getElementById("ano-final");
+const btnLimpar = document.getElementById("btn-limpar");
+
+// ELEMENTOS DA LISTAGEM
 const listaLivros = document.getElementById("lista-livros");
 const btnAnterior = document.getElementById("btn-anterior");
 const btnProximo = document.getElementById("btn-proximo");
@@ -19,126 +35,354 @@ const btnConfirmarExclusao = document.getElementById("btn-confirmar-exclusao");
 const mensagemResultado = document.getElementById("mensagem-resultado");
 
 // ==================================
-// LISTAR LIVROS
+// ATUALIZAR PAGINAÇÃO
 // ==================================
 
-async function buscarLivros() {
+function atualizarPaginacao(pagina, total) {
 
-    try {
-        const resposta = await fetch(
-            `${apiUrl}?PageNumber=${paginaAtual}&PageSize=${tamanhoPagina}`
-        );
+    paginaAtual = pagina;
+    totalPaginas = total;
 
-        if (!resposta.ok) {
-            throw new Error("Não foi possível buscar os livros.");
-        }
+    infoPagina.textContent =
+        `Página ${pagina} de ${Math.max(1, total)}`;
 
-        const dados = await resposta.json();
+    btnAnterior.disabled = pagina <= 1;
+    btnProximo.disabled = pagina >= total;
+}
 
-        // VOLTAR UMA PÁGINA SE A ATUAL FICAR VAZIA
-        if (paginaAtual > 1 && paginaAtual > dados.totalPaginas) {
-            paginaAtual--;
-            return buscarLivros();
-        }
+// ==================================
+// EXIBIR LIVROS NA TABELA
+// ==================================
 
-        paginaAtual = dados.paginaAtual;
-        totalPaginas = dados.totalPaginas;
+function exibirLivros(livros) {
 
-        infoPagina.textContent =
-            `Página ${paginaAtual} de ${Math.max(1, totalPaginas)}`;
+    listaLivros.innerHTML = "";
 
-        btnAnterior.disabled = paginaAtual <= 1;
-        btnProximo.disabled = paginaAtual >= totalPaginas;
-
-        listaLivros.innerHTML = "";
-
-        // LISTA VAZIA
-        if (dados.livros.length === 0) {
-
-            const linha = document.createElement("tr");
-            const coluna = document.createElement("td");
-
-            coluna.colSpan = 6;
-            coluna.textContent = "Nenhum livro encontrado.";
-
-            linha.appendChild(coluna);
-            listaLivros.appendChild(linha);
-
-            return;
-        }
-
-        // PREENCHER TABELA
-        dados.livros.forEach(livro => {
-
-            const linha = document.createElement("tr");
-
-            const colunaId = document.createElement("td");
-            colunaId.textContent = livro.id;
-
-            const colunaTitulo = document.createElement("td");
-            colunaTitulo.textContent = livro.titulo;
-
-            const colunaIsbn = document.createElement("td");
-            colunaIsbn.textContent = livro.isbn;
-
-            const colunaAno = document.createElement("td");
-            colunaAno.textContent = livro.anoPublicacao;
-
-            const colunaAutor = document.createElement("td");
-            colunaAutor.textContent =
-                livro.autor?.nome ?? "Não informado";
-
-            const colunaAcoes = document.createElement("td");
-
-            // BOTÃO ALTERAR
-            const btnAlterar = document.createElement("button");
-
-            btnAlterar.textContent = "Alterar";
-            btnAlterar.className = "btn-alterar";
-
-            btnAlterar.addEventListener("click", function () {
-                window.location.href =
-                    `LivroPost.html?id=${livro.id}`;
-            });
-
-            // BOTÃO EXCLUIR
-            const btnExcluir = document.createElement("button");
-
-            btnExcluir.textContent = "Excluir";
-            btnExcluir.className = "btn-excluir";
-
-            btnExcluir.addEventListener("click", function () {
-                abrirModalExclusao(livro);
-            });
-
-            colunaAcoes.appendChild(btnAlterar);
-            colunaAcoes.appendChild(btnExcluir);
-
-            linha.appendChild(colunaId);
-            linha.appendChild(colunaTitulo);
-            linha.appendChild(colunaIsbn);
-            linha.appendChild(colunaAno);
-            linha.appendChild(colunaAutor);
-            linha.appendChild(colunaAcoes);
-
-            listaLivros.appendChild(linha);
-        });
-
-    } catch (erro) {
-        console.error(erro);
-
-        listaLivros.innerHTML = "";
+    if (livros.length === 0) {
 
         const linha = document.createElement("tr");
         const coluna = document.createElement("td");
 
         coluna.colSpan = 6;
-        coluna.textContent = "Não foi possível carregar os livros.";
+        coluna.textContent = "Nenhum livro encontrado.";
 
         linha.appendChild(coluna);
         listaLivros.appendChild(linha);
+
+        return;
+    }
+
+    livros.forEach(livro => {
+
+        const linha = document.createElement("tr");
+
+        const colunaId = document.createElement("td");
+        colunaId.textContent = livro.id;
+
+        const colunaTitulo = document.createElement("td");
+        colunaTitulo.textContent = livro.titulo;
+
+        const colunaIsbn = document.createElement("td");
+        colunaIsbn.textContent = livro.isbn;
+
+        const colunaAno = document.createElement("td");
+        colunaAno.textContent = livro.anoPublicacao;
+
+        const colunaAutor = document.createElement("td");
+        colunaAutor.textContent =
+            livro.autor?.nome ?? "Não informado";
+
+        const colunaAcoes = document.createElement("td");
+
+        // BOTÃO ALTERAR
+        const btnAlterar = document.createElement("button");
+
+        btnAlterar.textContent = "Alterar";
+        btnAlterar.className = "btn-alterar";
+
+        btnAlterar.addEventListener("click", function () {
+            window.location.href =
+                `LivroPost.html?id=${livro.id}`;
+        });
+
+        // BOTÃO EXCLUIR
+        const btnExcluir = document.createElement("button");
+
+        btnExcluir.textContent = "Excluir";
+        btnExcluir.className = "btn-excluir";
+
+        btnExcluir.addEventListener("click", function () {
+            abrirModalExclusao(livro);
+        });
+
+        colunaAcoes.appendChild(btnAlterar);
+        colunaAcoes.appendChild(btnExcluir);
+
+        linha.appendChild(colunaId);
+        linha.appendChild(colunaTitulo);
+        linha.appendChild(colunaIsbn);
+        linha.appendChild(colunaAno);
+        linha.appendChild(colunaAutor);
+        linha.appendChild(colunaAcoes);
+
+        listaLivros.appendChild(linha);
+    });
+}
+
+// ==================================
+// BUSCAR LIVROS
+// ==================================
+
+async function buscarLivros() {
+
+    try {
+
+        // PESQUISA POR ID
+        if (filtro.tipo === "id" && filtro.valor) {
+
+            const resposta = await fetch(
+                `${apiUrl}/${filtro.valor}`
+            );
+
+            if (resposta.status === 404) {
+
+                exibirLivros([]);
+                atualizarPaginacao(1, 1);
+
+                return;
+            }
+
+            if (!resposta.ok) {
+                throw new Error(
+                    "Não foi possível buscar o livro pelo ID."
+                );
+            }
+
+            const livro = await resposta.json();
+
+            // GET POR ID RETORNA UM OBJETO
+            exibirLivros([livro]);
+
+            atualizarPaginacao(1, 1);
+
+            return;
+        }
+
+        // FILTROS DA QUERY STRING
+        const parametros = new URLSearchParams({
+            PageNumber: paginaAtual,
+            PageSize: tamanhoPagina
+        });
+
+        if (filtro.tipo === "titulo" && filtro.valor) {
+            parametros.append("Titulo", filtro.valor);
+        }
+
+        if (filtro.tipo === "autor" && filtro.valor) {
+            parametros.append("AutorNome", filtro.valor);
+        }
+
+        if (filtro.tipo === "ano" && filtro.valor) {
+            parametros.append("AnoInicial", filtro.valor);
+
+            if (filtro.anoFinal) {
+                parametros.append(
+                    "AnoFinal",
+                    filtro.anoFinal
+                );
+            }
+        }
+
+        const resposta = await fetch(
+            `${apiUrl}?${parametros}`
+        );
+
+        if (!resposta.ok) {
+            throw new Error(
+                "Não foi possível buscar os livros."
+            );
+        }
+
+        const dados = await resposta.json();
+
+        // VOLTAR UMA PÁGINA SE NECESSÁRIO
+        if (
+            paginaAtual > 1 &&
+            paginaAtual > dados.totalPaginas
+        ) {
+            paginaAtual--;
+            return buscarLivros();
+        }
+
+        atualizarPaginacao(
+            dados.paginaAtual,
+            dados.totalPaginas
+        );
+
+        exibirLivros(dados.livros);
+
+    } catch (erro) {
+        console.error(erro);
+
+        exibirLivros([]);
+        atualizarPaginacao(1, 1);
+
+        mensagemResultado.textContent = erro.message;
+        mensagemResultado.className = "mensagem-erro";
     }
 }
+
+// ==================================
+// ALTERAR TIPO DE PESQUISA
+// ==================================
+
+tipoPesquisa.addEventListener("change", function () {
+
+    valorPesquisa.value = "";
+    inputAnoFinal.value = "";
+
+    campoAnoFinal.hidden = true;
+
+    if (tipoPesquisa.value === "titulo") {
+
+        valorPesquisa.type = "search";
+        valorPesquisa.placeholder =
+            "Pesquisar livro pelo título...";
+
+    } else if (tipoPesquisa.value === "id") {
+
+        valorPesquisa.type = "number";
+        valorPesquisa.placeholder =
+            "Digite o ID do livro...";
+
+    } else if (tipoPesquisa.value === "autor") {
+
+        valorPesquisa.type = "search";
+        valorPesquisa.placeholder =
+            "Pesquisar pelo nome do autor...";
+
+    } else if (tipoPesquisa.value === "ano") {
+
+        valorPesquisa.type = "number";
+        valorPesquisa.placeholder =
+            "Ano inicial...";
+
+        campoAnoFinal.hidden = false;
+    }
+});
+
+// ==================================
+// VALIDAR NÚMERO POSITIVO
+// ==================================
+
+function numeroValido(valor) {
+
+    const numero = Number(valor);
+
+    return (
+        /^[1-9]\d*$/.test(valor) &&
+        Number.isSafeInteger(numero)
+    );
+}
+
+// ==================================
+// PESQUISAR LIVROS
+// ==================================
+
+formPesquisa.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const tipo = tipoPesquisa.value;
+    const valor = valorPesquisa.value.trim();
+    const anoFinal = inputAnoFinal.value.trim();
+
+    mensagemResultado.textContent = "";
+
+    // NÃO ACEITAR ANO OU ID INVÁLIDO
+    if (tipo === "id" && valor && !numeroValido(valor)) {
+
+        mensagemResultado.textContent =
+            "Informe um ID inteiro e maior que zero.";
+
+        mensagemResultado.className = "mensagem-erro";
+        return;
+    }
+
+    if (tipo === "ano") {
+
+        if (!numeroValido(valor)) {
+
+            mensagemResultado.textContent =
+                "Informe um ano inicial válido.";
+
+            mensagemResultado.className = "mensagem-erro";
+            return;
+        }
+
+        if (anoFinal && !numeroValido(anoFinal)) {
+
+            mensagemResultado.textContent =
+                "Informe um ano final válido.";
+
+            mensagemResultado.className = "mensagem-erro";
+            return;
+        }
+
+        if (
+            anoFinal &&
+            Number(anoFinal) < Number(valor)
+        ) {
+
+            mensagemResultado.textContent =
+                "O ano final não pode ser menor que o inicial.";
+
+            mensagemResultado.className = "mensagem-erro";
+            return;
+        }
+    }
+
+    // SALVAR FILTRO ATUAL
+    filtro = {
+        tipo: tipo,
+        valor: valor,
+        anoFinal: tipo === "ano" ? anoFinal : ""
+    };
+
+    // NOVA PESQUISA COMEÇA NA PRIMEIRA PÁGINA
+    paginaAtual = 1;
+
+    buscarLivros();
+});
+
+// ==================================
+// LIMPAR PESQUISA
+// ==================================
+
+btnLimpar.addEventListener("click", function () {
+
+    tipoPesquisa.value = "titulo";
+
+    valorPesquisa.type = "search";
+    valorPesquisa.value = "";
+    valorPesquisa.placeholder =
+        "Pesquisar livro pelo título...";
+
+    inputAnoFinal.value = "";
+    campoAnoFinal.hidden = true;
+
+    filtro = {
+        tipo: "",
+        valor: "",
+        anoFinal: ""
+    };
+
+    paginaAtual = 1;
+
+    mensagemResultado.textContent = "";
+
+    buscarLivros();
+});
 
 // ==================================
 // PAGINAÇÃO
@@ -201,18 +445,21 @@ btnConfirmarExclusao.addEventListener("click", async function () {
     mensagemResultado.textContent = "";
 
     try {
+
         await excluirLivro(livro.id);
 
         modalExclusao.close();
+
+        // ATUALIZAR A LISTAGEM COM O FILTRO ATUAL
+        await buscarLivros();
 
         mensagemResultado.textContent =
             `Livro "${livro.titulo}" excluído com sucesso!`;
 
         mensagemResultado.className = "mensagem-sucesso";
 
-        await buscarLivros();
-
     } catch (erro) {
+
         console.error(erro);
 
         modalExclusao.close();
@@ -221,6 +468,7 @@ btnConfirmarExclusao.addEventListener("click", async function () {
         mensagemResultado.className = "mensagem-erro";
 
     } finally {
+
         btnConfirmarExclusao.disabled = false;
         btnCancelarExclusao.disabled = false;
         btnConfirmarExclusao.textContent = "Sim, excluir";
@@ -229,7 +477,7 @@ btnConfirmarExclusao.addEventListener("click", async function () {
     }
 });
 
-// LIMPAR SELEÇÃO AO FECHAR MODAL
+// LIMPAR SELEÇÃO
 modalExclusao.addEventListener("close", function () {
     livroSelecionado = null;
 });
@@ -249,6 +497,7 @@ async function excluirLivro(id) {
         !Number.isFinite(Date.parse(expiresAt)) ||
         Date.now() >= Date.parse(expiresAt)
     ) {
+
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("expiresAt");
 
@@ -258,7 +507,9 @@ async function excluirLivro(id) {
     }
 
     const resposta = await fetch(`${apiUrl}/${id}`, {
+
         method: "DELETE",
+
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -281,7 +532,9 @@ async function excluirLivro(id) {
     }
 
     if (!resposta.ok) {
-        throw new Error("Não foi possível excluir o livro.");
+        throw new Error(
+            "Não foi possível excluir o livro."
+        );
     }
 }
 

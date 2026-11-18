@@ -1,6 +1,4 @@
-
 /* CONFIGURAÇÕES GERAIS */
-
 * {
     margin: 0;
     padding: 0;
@@ -13,20 +11,17 @@ body {
     color: #333;
 }
 
-/* CABEÇALHO */
-
+/* CABEÇALHO E NAVEGAÇÃO */
 header {
-    background-color: #1e293b;
-    color: white;
-    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 40px;
+    background-color: #1e293b;
+    color: white;
 }
 
-header h1 {
-    font-size: 24px;
-}
+header h1 { font-size: 24px; }
 
 nav {
     display: flex;
@@ -38,12 +33,9 @@ nav a {
     text-decoration: none;
 }
 
-nav a:hover {
-    color: #38bdf8;
-}
+nav a:hover { color: #38bdf8; }
 
 /* CONTEÚDO */
-
 main {
     max-width: 1100px;
     margin: 40px auto;
@@ -55,24 +47,330 @@ section h2 {
     color: #1e293b;
 }
 
-/* BOTÕES */
-
+/* BOTÕES GERAIS */
 button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
     background-color: #2563eb;
     color: white;
-    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover { background-color: #1d4ed8; }
+button:disabled { cursor: not-allowed; }
+
+/* CABEÇALHOS DAS LISTAGENS */
+.cabecalho-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.cabecalho-secao h2 { margin-bottom: 0; }
+
+.btn-cadastrar {
+    display: inline-block;
     padding: 12px 20px;
     border-radius: 6px;
-    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-cadastrar:hover { background-color: #1d4ed8; }
+
+/* PESQUISAS */
+:is(.pesquisa-autores, .pesquisa-livros) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+#tipo-pesquisa,
+#pesquisa-nome,
+#valor-pesquisa,
+#ano-final {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: white;
+    color: #334155;
     font-size: 14px;
 }
 
-button:hover {
-    background-color: #1d4ed8;
+#tipo-pesquisa {
+    min-width: 110px;
+    cursor: pointer;
 }
 
-/* RESPONSIVIDADE */
+:is(#pesquisa-nome, #valor-pesquisa) {
+    flex: 1;
+    min-width: 0;
+}
 
+:is(#tipo-pesquisa, #pesquisa-nome, #valor-pesquisa, #ano-final):focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+:is(#btn-pesquisar, #btn-limpar) {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#btn-pesquisar { background-color: #2563eb; }
+#btn-pesquisar:hover { background-color: #1d4ed8; }
+#btn-limpar { background-color: #64748b; }
+#btn-limpar:hover { background-color: #475569; }
+
+/* TABELAS */
+:is(#tabela-autores, #tabela-livros) {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+:is(#tabela-autores, #tabela-livros) thead {
+    background-color: #1e293b;
+    color: white;
+}
+
+:is(#tabela-autores, #tabela-livros) :is(th, td) {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+    font-size: 14px;
+}
+
+:is(#tabela-autores, #tabela-livros) th { font-weight: 600; }
+:is(#tabela-autores, #tabela-livros) tbody tr:hover { background-color: #f8fafc; }
+:is(#tabela-autores, #tabela-livros) tbody tr:last-child td { border-bottom: none; }
+
+/* AÇÕES DA TABELA */
+:is(.btn-alterar, .btn-excluir) {
+    margin-right: 6px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-alterar { background-color: #f59e0b; }
+.btn-alterar:hover { background-color: #d97706; }
+.btn-excluir { background-color: #dc2626; }
+.btn-excluir:hover { background-color: #b91c1c; }
+
+/* PAGINAÇÃO */
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin: 35px 0 20px;
+}
+
+.paginacao button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.paginacao button:hover:not(:disabled) { background-color: #1d4ed8; }
+.paginacao button:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+
+#info-pagina {
+    min-width: 100px;
+    text-align: center;
+    color: #475569;
+    font-size: 14px;
+}
+
+/* FORMULÁRIOS DE AUTORES E LIVROS */
+:is(#form-autor, #form-livro) {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 25px 0;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+:is(#form-autor, #form-livro) label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+:is(#form-autor, #form-livro) :is(input, select) {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 15px;
+}
+
+:is(#form-autor, #form-livro) :is(input, select):focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+:is(#form-autor, #form-livro) button {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+:is(#form-autor, #form-livro) a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+:is(#form-autor, #form-livro) a:hover { text-decoration: underline; }
+
+:is(#mensagem-autor, #mensagem-livro) {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+#campo-id[hidden] { display: none; }
+
+#campo-id:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Campos de ID são somente leitura na edição */
+:is(#form-autor #autorId, #form-livro #livroId) {
+    background-color: #f1f5f9;
+    color: #64748b;
+    cursor: default;
+}
+
+:is(#btn-salvar-autor, #btn-salvar-livro):disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* MODAL DE EXCLUSÃO */
+.modal-exclusao {
+    width: calc(100% - 32px);
+    max-width: 430px;
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-exclusao::backdrop { background-color: rgba(15, 23, 42, 0.6); }
+.modal-conteudo { padding: 30px; }
+
+.modal-conteudo h2 {
+    margin-bottom: 15px;
+    color: #1e293b;
+    font-size: 22px;
+}
+
+.modal-conteudo p {
+    margin-bottom: 25px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.modal-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+#btn-cancelar-exclusao { background-color: #e2e8f0; color: #334155; }
+#btn-cancelar-exclusao:hover { background-color: #cbd5e1; }
+#btn-confirmar-exclusao { background-color: #dc2626; color: white; }
+#btn-confirmar-exclusao:hover { background-color: #b91c1c; }
+.modal-acoes button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* NOTIFICAÇÕES — ocultas quando não há mensagem */
+#mensagem-resultado {
+    display: none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+    max-width: 350px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #1e293b;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+#mensagem-resultado:not(:empty) { display: block; }
+#mensagem-resultado.mensagem-sucesso { background-color: #16a34a; }
+#mensagem-resultado.mensagem-erro { background-color: #dc2626; }
+
+/* FORMULÁRIOS DE LOGIN E CADASTRO */
+:is(#form-login, #form-cadastro) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+:is(#form-login, #form-cadastro) label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+:is(#form-login, #form-cadastro) input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+:is(#form-login, #form-cadastro) input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* RESPONSIVIDADE GLOBAL */
 @media (max-width: 600px) {
     header {
         flex-direction: column;
@@ -80,7 +378,8 @@ button:hover {
         padding: 20px;
     }
 
-    main {
-        margin: 25px auto;
-    }
+    main { margin: 25px auto; }
+
+    :is(#form-autor, #form-livro) { padding: 20px; }
+    :is(#form-autor, #form-livro) button { width: 100%; }
 }

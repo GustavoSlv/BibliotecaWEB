@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../Css/style.css">
     <link rel="stylesheet" href="../Css/Autor.css">
 </head>
+
 <body>
 
     <header>
@@ -17,7 +18,7 @@
         <nav>
             <a href="AutorGet.html">Autores</a>
             <a href="LivroGet.html">Livros</a>
-            <a href="UsuarioLogin.html">Sair</a>
+            <a href="UsuarioLogin.html" onclick="sair(); return false;">Sair</a>
         </nav>
     </header>
 
@@ -32,7 +33,30 @@
                 </a>
             </div>
 
-            
+
+            <!-- PESQUISA DE AUTORES -->
+
+            <div class="pesquisa-autores">
+
+                <select id="tipo-pesquisa" aria-label="Pesquisar por">
+                    <option value="nome">Nome</option>
+                    <option value="id">ID</option>
+                </select>
+
+                <input type="search" id="pesquisa-nome" placeholder="Pesquisar autor pelo nome...">
+
+                <button type="button" id="btn-pesquisar">
+                    Pesquisar
+                </button>
+
+                <button type="button" id="btn-limpar">
+                    Limpar
+                </button>
+
+            </div>
+
+
+
 
             <table id="tabela-autores">
                 <thead>
@@ -49,15 +73,13 @@
             </table>
 
             <div class="paginacao">
-                <button id="btn-anterior" type="button"
-                        aria-label="Página anterior">
+                <button id="btn-anterior" type="button" aria-label="Página anterior">
                     &#10094;
                 </button>
 
                 <span id="info-pagina">Página 1</span>
 
-                <button id="btn-proximo" type="button"
-                        aria-label="Próxima página">
+                <button id="btn-proximo" type="button" aria-label="Próxima página">
                     &#10095;
                 </button>
             </div>
@@ -87,12 +109,9 @@
     </dialog>
 
     <!-- NOTIFICAÇÃO -->
-    <div
-        id="mensagem-resultado"
-        role="status"
-        aria-live="polite">
-    </div>
-
+    <div id="mensagem-resultado" role="status" aria-live="polite"></div>
     <script src="../JavaScript/AutorGet.js"></script>
+    <script src="../JavaScript/Logout.js"></script>
 </body>
+
 </html>
